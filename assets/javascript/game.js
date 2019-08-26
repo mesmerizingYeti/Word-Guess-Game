@@ -43,6 +43,7 @@ let game = {
         this.guessesLeft = 9
         this.currentGuesses = ''
         this.chosenState = Math.floor(49 * Math.random())
+        this.displayState = ''
         for (let i = 0; i < states[this.chosenState].length; i++) {
             if (states[this.chosenState].charAt(i) !== ' ') {
                 this.displayState += '_'
@@ -50,6 +51,7 @@ let game = {
                 this.displayState += ' '
             }
         }
+        console.log(states[this.chosenState])
     },
     findAllIndices (str, char) {
         let returnValue = []
@@ -74,27 +76,36 @@ let game = {
 game.resetGame()
 game.updateDocument()
 
-console.log(states[game.chosenState])
-
 document.onkeypress = event => {
 
     if (97 <= event.keyCode && event.keyCode <= 122) {
         let key = event.key.toUpperCase()
-        if (!currentGuesses.includes(key)) {
-
+        if (!game.currentGuesses.includes(key)) {
             game.currentGuesses += `${key} `
 
+            // Guess was correct
             if (states[game.chosenState].includes(key)) {
 
+                // Insert key into displayState
                 let indices = game.findAllIndices(states[game.chosenState], key)
                 for (let i = 0; i < indices.length; i++) {
-                    game.displayState = game.replaceCharAt(game.displayState, key, i)
+                    game.displayState = game.replaceCharAt(game.displayState, key, indices[i])
                 }
 
+                // Win game condition
+                if (!game.displayState.includes('_')) {
+                    game.wins++
+                    alert('You won!!')
+                    game.resetGame()
+                }
+
+            } else if (game.guessesLeft === 1){
+                // Lose game condition
+                alert(`You lost, state was ${states[game.chosenState]}`)
+                game.resetGame()
+
             } else {
-
                 game.guessesLeft--
-
             }
 
             game.updateDocument()
