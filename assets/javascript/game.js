@@ -3,10 +3,17 @@ const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Color
 let wins = 0
 let guessesLeft = 9
 let currentGuesses = ''
-let chosenState = Math.floor(49 * Math.random())
+let chosenState = 0
 let display = ''
-for (let i = 0; i < states[chosenState].length; i++) {
-    display += '_'
+
+const reset = _ => {
+    guessesLeft = 9
+    currentGuesses = ''
+    chosenState = Math.floor(49 * Math.random())
+    for (let i = 0; i < states[chosenState].length; i++) {
+        display += '_'
+    }
+
 }
 
 const findAllIndices = (str, char) => {
@@ -19,11 +26,22 @@ const findAllIndices = (str, char) => {
     return returnValue
 }
 
+reset()
 console.log(states[chosenState])
-console.log(display)
 
 document.onkeypress = event => {
     console.log(event)
 
+    if (97 <= event.keyCode && event.keyCode <= 122) {
 
+        if (!currentGuesses.includes(event.key.toUpperCase())) {
+
+            
+
+        } else {
+            alert('You already chose that letter. Choose another.')
+        }
+    } else {
+        alert('That is not a letter. Choose again.')
+    }
 }
