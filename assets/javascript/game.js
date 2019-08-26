@@ -39,15 +39,19 @@ let game = {
     currentGuesses: '',
     chosenState: 0,
     displayState: '',
-    resetGame = _ => {
+    resetGame () {
         this.guessesLeft = 9
         this.currentGuesses = ''
         this.chosenState = Math.floor(49 * Math.random())
         for (let i = 0; i < states[this.chosenState].length; i++) {
-            this.displayState += '_'
+            if (states[this.chosenState].charAt(i) !== ' ') {
+                this.displayState += '_'
+            } else {
+                this.displayState += ' '
+            }
         }
     },
-    findAllIndices = (str, char) => {
+    findAllIndices (str, char) {
         let returnValue = []
         for (let i = 0; i < str.length; i++) {
             if (str.charAt(i) === char) {
@@ -56,7 +60,7 @@ let game = {
         }
         return returnValue
     },
-    updateDocument = _ => {
+    updateDocument () {
         document.getElementById('wins').textContent = this.wins
         document.getElementById('current-word').textContent = this.displayState
         document.getElementById('guesses-left').textContent = this.guessesLeft
@@ -64,8 +68,9 @@ let game = {
     }
 }
 
-resetGame()
-console.log(states[chosenState])
+game.resetGame()
+game.updateDocument()
+console.log(states[game.chosenState])
 
 document.onkeypress = event => {
 
@@ -73,7 +78,7 @@ document.onkeypress = event => {
 
         if (!currentGuesses.includes(event.key.toUpperCase())) {
 
-
+        
 
         } else {
             alert('You already chose that letter. Choose another.')
