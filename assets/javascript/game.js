@@ -1,4 +1,4 @@
-const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
+const states = ['ALABAMA', 'ALASKA', 'ARIZONA', 'ARKANSAS', 'CALIFORNIA', 'COLORADO', 'CONNECTICUT', 'DELAWARE', 'FLORIDA', 'GEORGIA', 'HAWAII', 'IDAHO', 'ILLINOIS', 'INDIANA', 'IOWA', 'KANSAS', 'KENTUCKY', 'LOUISIANA', 'MAINE', 'MARYLAND', 'MASSACHUSETTS', 'MICHIGAN', 'MINNESOTA', 'MISSISSIPPI', 'MISSOURI', 'MONTANA', 'NEBRASKA', 'NEVADA', 'NEW HAMPSHIRE', 'NEW JERSEY', 'NEW MEXICO', 'NEW YORK', 'NORTH CAROLINA', 'NORTH DAKOTA', 'OHIO', 'OKLAHOMA', 'OREGON', 'PENNSYLVANIA', 'RHODE ISLAND', 'SOUTH CAROLINA', 'SOUTH DAKOTA', 'TENNESSEE', 'TEXAS', 'UTAH', 'VERMONT', 'VIRGINIA', 'WASHINGTON', 'WEST VIRGINIA', 'WISCONSIN', 'WYOMING']
 
 // let wins = 0
 // let guessesLeft = 9
@@ -60,6 +60,9 @@ let game = {
         }
         return returnValue
     },
+    replaceCharAt(str, char, i) {
+        return str.slice(0, i) + char + str.slice(i+1, str.length)
+    },
     updateDocument () {
         document.getElementById('wins').textContent = this.wins
         document.getElementById('current-word').textContent = this.displayState
@@ -70,15 +73,31 @@ let game = {
 
 game.resetGame()
 game.updateDocument()
+
 console.log(states[game.chosenState])
 
 document.onkeypress = event => {
 
     if (97 <= event.keyCode && event.keyCode <= 122) {
+        let key = event.key.toUpperCase()
+        if (!currentGuesses.includes(key)) {
 
-        if (!currentGuesses.includes(event.key.toUpperCase())) {
+            game.currentGuesses += `${key} `
 
-        
+            if (states[game.chosenState].includes(key)) {
+
+                let indices = game.findAllIndices(states[game.chosenState], key)
+                for (let i = 0; i < indices.length; i++) {
+                    game.displayState = game.replaceCharAt(game.displayState, key, i)
+                }
+
+            } else {
+
+                game.guessesLeft--
+
+            }
+
+            game.updateDocument()
 
         } else {
             alert('You already chose that letter. Choose another.')
