@@ -84,7 +84,23 @@ const videos = [
     // South Dakota
     'https://www.youtube.com/watch?v=Ghx1GJy1VCU&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=42',
     // Tennessee
-    'https://www.youtube.com/watch?v=olL-bDGphmM&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=43']
+    'https://www.youtube.com/watch?v=olL-bDGphmM&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=43',
+    // Texas
+    'https://www.youtube.com/watch?v=UFUuh_XNXIU&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=44',
+    // Utah
+    'https://www.youtube.com/watch?v=ExQVrbucG2g&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=45',
+    // Vermont
+    'https://www.youtube.com/watch?v=zFTRYLS_93s&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=46',
+    // Virginia
+    'https://www.youtube.com/watch?v=siSNj-PMCS8&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=47',
+    // Washington
+    'https://www.youtube.com/watch?v=QaM_h28Wr0g&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=48',
+    // West Virginia
+    'https://www.youtube.com/watch?v=GXLUpDFUxIo&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=49',
+    // Wisconsin
+    'https://www.youtube.com/watch?v=BQyh-Ct-2LU&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=50',
+    // Wyoming
+    'https://www.youtube.com/watch?v=vdcyjTGVglo&list=PLMQMoYkBxsBowyq0eiCjxY8lYRW8Mvwj7&index=51']
 
 console.log(document.getElementById('video'))
 let x = document.getElementById('video')
