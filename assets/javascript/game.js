@@ -1,11 +1,9 @@
-let iframe = document.getElementById('video')
-iframe.style.display = 'none'
-
 let wins = 0
 let guessesLeft = 0
 let currentGuesses = []
 let chosenState = 0
 let state = []
+let winner = false
 
 const resetGame = _ => {
     guessesLeft = 12
@@ -16,6 +14,7 @@ const resetGame = _ => {
         let char = states[chosenState].charAt(i)
         state.push({ letter: char, show: char === ' '})
     }
+    winner = false
     console.log(states[chosenState])
 }
 
@@ -33,14 +32,36 @@ const updateDocument = _ => {
 }
 
 const changeImage = _ => {
-
+    console.log('Changing image')
+    document.getElementsByClassName('transparent')[0].setAttribute('src', `./assets/images/${states[Math.floor(Math.random()*49.9)]}.png`)
+    for( let element of document.getElementsByClassName('img-fade')) {
+        element.classList.toggle('transparent')
+    }
 }
 
+let picInterval = setInterval(changeImage, 2000)
 resetGame()
 updateDocument()
 
-document.onkeypress = event => {
+const win = _ => {
+    wins++
+    winner = true
+    updateDocument()
+    clearInterval(picInterval)
+    document.getElementById('media-container').innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0" id='video' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    document.getElementsByTagName('h2')[0].classList.toggle('transparent')
+    document.getElementsByClassName('second-row')[0].innerHTML = `<button id='again-btn'>Click to play again</button>`
+    swal({
+        title: 'CONGRADULATIONS',
+        text: 'You guessed the state!',
+        icon: 'success'
+    })
+}
 
+document.onkeypress = event => {
+    if (winner) {
+        return
+    }
     // Check if guess is letter
     if (97 <= event.keyCode && event.keyCode <= 122) {
         let key = event.key.toUpperCase()
@@ -55,15 +76,7 @@ document.onkeypress = event => {
             }
 
             if (state.every(element => element.show)) {
-                // Win Condition
-                wins++
-                swal({
-                    title: 'CONGRADULATIONS',
-                    text: 'You guessed the state!',
-                    icon: 'success'
-                })
-                iframe.setAttribute('src', `https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0`)
-                iframe.style.display = 'block'
+                win()
             } else if (guessesLeft === 1) {
                 // Lose Condition
                 swal({
@@ -93,8 +106,6 @@ document.onkeypress = event => {
     }
 }
 
-document.getElementById('change-img').onclick = event => {
-    for( let element of document.getElementsByClassName('img-fade')) {
-        element.classList.toggle('transparent')
-    }
-}
+document.getElementById('again-btn').onclick(event => {
+    document.getElementById('media-container').removeChild(document.getElementById('video'))
+})
