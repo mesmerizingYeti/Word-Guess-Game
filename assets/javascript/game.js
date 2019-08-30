@@ -29,7 +29,7 @@ const updateDocument = _ => {
     document.getElementById('wins').textContent = wins
     document.getElementById('current-word').textContent = displayState()
     document.getElementById('guesses-left').textContent = guessesLeft
-    document.getElementById('guessed-letters').textContent = currentGuesses.toString().replace(/,/g, ' ')
+    document.getElementById('guessed-letters').textContent = currentGuesses.join('')
 }
 
 resetGame()
@@ -53,22 +53,38 @@ document.onkeypress = event => {
             if (state.every(element => element.show)) {
                 // Win Condition
                 wins++
-                alert('You won!!')
+                swal({
+                    title: 'CONGRADULATIONS',
+                    text: 'You guessed the state!',
+                    icon: 'success'
+                })
                 iframe.setAttribute('src', `https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0`)
                 iframe.style.display = 'block'
             } else if (guessesLeft === 1) {
                 // Lose Condition
-                alert(`You lost, state was ${states[game.chosenState]}`)
-                game.resetGame()
+                swal({
+                    title: 'YOU LOST',
+                    text: `The state was ${states[chosenState]}`,
+                    icon: 'error'
+                })
+                resetGame()
             } else {
                 guessesLeft--
             }
             updateDocument()
         } else {
-            alert('You already chose that letter. Choose another.')
+            swal({
+                title: 'Guess Again',
+                text: 'You already chose that letter.',
+                icon: 'warning'
+            })
         }
 
     } else {
-        alert('That is not a letter. Choose again.')
+        swal({
+            title: 'Guess Again',
+            text: 'That is not a letter.',
+            icon: 'warning'
+        })
     }
 }
