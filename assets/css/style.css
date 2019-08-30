@@ -1,0 +1,46 @@
+body {
+    background-color: indianred;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+.bangers {
+    font-family: 'Bangers', cursive;
+}
+
+.josefin-sans {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.lato {
+    font-family: 'Lato', sans-serif;
+}
+
+#img-container {
+    position: relative;
+    height: 315px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-content: center;
+}
+
+#img-container img {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    height: 315px;
+    width: auto;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+#img-container img.transparent {
+    opacity: 0;
+}

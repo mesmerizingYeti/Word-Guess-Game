@@ -32,6 +32,10 @@ const updateDocument = _ => {
     document.getElementById('guessed-letters').textContent = currentGuesses.join('')
 }
 
+const changeImage = _ => {
+    
+}
+
 resetGame()
 updateDocument()
 
@@ -86,5 +90,11 @@ document.onkeypress = event => {
             text: 'That is not a letter.',
             icon: 'warning'
         })
+    }
+}
+
+document.getElementById('change-img').onclick = event => {
+    for( let element of document.getElementsByClassName('img-fade')) {
+        element.classList.toggle('transparent')
     }
 }
