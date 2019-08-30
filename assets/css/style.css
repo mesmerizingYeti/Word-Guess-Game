@@ -1,7 +1,3 @@
-body {
-    background-color: indianred;
-}
-
 h1 {
     font-size: 4em;
 }
@@ -12,22 +8,73 @@ h1 {
 
 .josefin-sans {
     font-family: 'Josefin Sans', sans-serif;
+    font-size: 2em;
 }
 
 .lato {
     font-family: 'Lato', sans-serif;
+    font-size: 2em;
 }
 
-#img-container {
+.playfair-display {
+    font-family: 'Playfair Display', serif;
+}
+
+.bc-popstar {
+    background-color: #B24C63;
+}
+
+.bc-denim-blue {
+    background-color: #2541B2;
+}
+
+.bc-eggshell {
+    background-color: #EDF0DA;
+}
+
+.bc-grullo {
+    background-color: #A89B8C;
+}
+
+.bc-peach-yellow {
+    background-color: #F0DFAD;
+}
+
+.c-popstar {
+    color: #B24C63;
+}
+
+.c-denim-blue {
+    color: #2541B2;
+}
+
+.c-white {
+    color: white;
+}
+
+.c-grullo {
+    color: #A89B8C;
+}
+
+.c-peach-yellow {
+    color: #F0DFAD;
+}
+
+.container {
+    height: 100vh;
+    padding: 15px;
+    border-left: 8px solid white;
+    border-right: 8px solid white;
+}
+
+.first-row {
     position: relative;
     height: 315px;
     width: 100%;
     margin: 0 auto;
-    display: flex;
-    align-content: center;
 }
 
-#img-container img {
+.first-row img {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -41,6 +88,6 @@ h1 {
     transition: opacity 1s ease-in-out;
 }
 
-#img-container img.transparent {
+.first-row img.transparent {
     opacity: 0;
 }

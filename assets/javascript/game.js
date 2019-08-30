@@ -8,7 +8,7 @@ let chosenState = 0
 let state = []
 
 const resetGame = _ => {
-    guessesLeft = 9
+    guessesLeft = 12
     currentGuesses = []
     chosenState = Math.floor(49 * Math.random())
     state = []
@@ -21,7 +21,7 @@ const resetGame = _ => {
 
 const displayState = _ => {
     let returnVal = ''
-    state.forEach(element => returnVal += (element.show ? element.letter : '_'))
+    state.forEach(element => returnVal += `${element.show?element.letter:'_'}`)
     return returnVal
 }
 
@@ -33,7 +33,7 @@ const updateDocument = _ => {
 }
 
 const changeImage = _ => {
-    
+
 }
 
 resetGame()
