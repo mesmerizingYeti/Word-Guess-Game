@@ -4,8 +4,10 @@ let currentGuesses = []
 let chosenState = 0
 let state = []
 let winner = false
+let picInterval
 
 const resetGame = _ => {
+    picInterval = setInterval(changeImage, 2000)
     guessesLeft = 12
     currentGuesses = []
     chosenState = Math.floor(49 * Math.random())
@@ -39,7 +41,7 @@ const changeImage = _ => {
     }
 }
 
-let picInterval = setInterval(changeImage, 2000)
+
 resetGame()
 updateDocument()
 
@@ -48,9 +50,32 @@ const win = _ => {
     winner = true
     updateDocument()
     clearInterval(picInterval)
-    document.getElementById('media-container').innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0" id='video' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-    document.getElementsByTagName('h2')[0].classList.toggle('transparent')
-    document.getElementsByClassName('second-row')[0].innerHTML = `<button id='again-btn'>Click to play again</button>`
+
+    document.getElementById('media-container').innerHTML = `
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0" id='video' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    `
+    document.getElementById('video').style.borderRadius = '20px'
+    document.getElementById('video').style.border = '3px solid white'
+
+    document.getElementsByClassName('second-row')[0].innerHTML = `
+        <button id='btn-again'>Click to play again</button>
+    `
+
+    document.getElementById('btn-again').onclick = event => {
+        console.log('push')
+        console.log(document.getElementById('media-container'))
+        console.log(document.getElementById('video'))
+        document.getElementById('media-container').innerHTML = `
+            <img src="./assets/images/ALASKA.png" alt="state" class="img-fade media">
+            <img src="./assets/images/ALABAMA.png" alt="state" class="img-fade transparent media">
+        `
+        document.getElementsByClassName('second-row')[0].innerHTML = `
+            <h2 class="lato">Press any key to get started.</h2>
+        `
+        resetGame()
+        updateDocument()
+    }
+
     swal({
         title: 'CONGRADULATIONS',
         text: 'You guessed the state!',
@@ -90,6 +115,7 @@ document.onkeypress = event => {
             }
             updateDocument()
         } else {
+            console.log('already chosen')
             swal({
                 title: 'Guess Again',
                 text: 'You already chose that letter.',
@@ -98,6 +124,7 @@ document.onkeypress = event => {
         }
 
     } else {
+        console.log('not a letter')
         swal({
             title: 'Guess Again',
             text: 'That is not a letter.',
@@ -105,7 +132,3 @@ document.onkeypress = event => {
         })
     }
 }
-
-document.getElementById('again-btn').onclick(event => {
-    document.getElementById('media-container').removeChild(document.getElementById('video'))
-})

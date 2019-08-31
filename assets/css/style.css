@@ -52,6 +52,10 @@ h1 {
     color: white;
 }
 
+.c-eggshell {
+    color: #EDF0DA;
+}
+
 .c-grullo {
     color: #A89B8C;
 }
@@ -63,8 +67,8 @@ h1 {
 .container {
     height: 100vh;
     padding: 15px;
-    border-left: 8px solid white;
-    border-right: 8px solid white;
+    border-left: 12px solid white;
+    border-right: 12px solid white;
 }
 
 .first-row {
