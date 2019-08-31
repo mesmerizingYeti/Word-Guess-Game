@@ -6,6 +6,7 @@ let state = []
 let winner = false
 let picInterval
 
+// reset variables for game
 const resetGame = _ => {
     picInterval = setInterval(changeImage, 2000)
     guessesLeft = 12
@@ -20,12 +21,14 @@ const resetGame = _ => {
     console.log(states[chosenState])
 }
 
+// display only guessed state letters
 const displayState = _ => {
     let returnVal = ''
     state.forEach(element => returnVal += `${element.show?element.letter:'_'}`)
     return returnVal
 }
 
+// update text elements on document
 const updateDocument = _ => {
     document.getElementById('wins').textContent = wins
     document.getElementById('current-word').textContent = displayState()
@@ -33,8 +36,8 @@ const updateDocument = _ => {
     document.getElementById('guessed-letters').textContent = currentGuesses.join('')
 }
 
+// fade between two state images
 const changeImage = _ => {
-    console.log('Changing image')
     document.getElementsByClassName('transparent')[0].setAttribute('src', `./assets/images/${states[Math.floor(Math.random()*49.9)]}.png`)
     for( let element of document.getElementsByClassName('img-fade')) {
         element.classList.toggle('transparent')
@@ -49,28 +52,31 @@ const win = _ => {
     wins++
     winner = true
     updateDocument()
+    // stop state gallery fading
     clearInterval(picInterval)
 
+    // create state video
     document.getElementById('media-container').innerHTML = `
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0" id='video' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoCodes[chosenState]}?controls=0&autoplay=1" id='video' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `
-    document.getElementById('video').style.borderRadius = '20px'
-    document.getElementById('video').style.border = '3px solid white'
+    let video = document.getElementById('video')
+    video.style.borderRadius = '20px'
+    video.style.border = '3px solid white'
 
+    // create play again button
     document.getElementsByClassName('second-row')[0].innerHTML = `
-        <button id='btn-again'>Click to play again</button>
+        <button id="btn-again" type="button" class="btn btn-light btn-lg">Click to play again</button>
     `
-
+    // if play again button is pressed ...
     document.getElementById('btn-again').onclick = event => {
-        console.log('push')
-        console.log(document.getElementById('media-container'))
-        console.log(document.getElementById('video'))
+        // reset fading state images
         document.getElementById('media-container').innerHTML = `
             <img src="./assets/images/ALASKA.png" alt="state" class="img-fade media">
             <img src="./assets/images/ALABAMA.png" alt="state" class="img-fade transparent media">
         `
+        // reset text instructions
         document.getElementsByClassName('second-row')[0].innerHTML = `
-            <h2 class="lato">Press any key to get started.</h2>
+            <h2 class="lato c-white">Press any key to get started.</h2>
         `
         resetGame()
         updateDocument()
@@ -84,6 +90,7 @@ const win = _ => {
 }
 
 document.onkeypress = event => {
+    // No input when state video is playing
     if (winner) {
         return
     }
@@ -101,9 +108,10 @@ document.onkeypress = event => {
             }
 
             if (state.every(element => element.show)) {
+                // win condition
                 win()
             } else if (guessesLeft === 1) {
-                // Lose Condition
+                // Lose condition
                 swal({
                     title: 'YOU LOST',
                     text: `The state was ${states[chosenState]}`,
