@@ -38,7 +38,7 @@ const updateDocument = _ => {
 
 // fade between two state images
 const changeImage = _ => {
-    document.getElementsByClassName('transparent')[0].setAttribute('src', `./assets/images/${states[Math.floor(Math.random()*49.9)]}.png`)
+    document.getElementsByClassName('transparent')[0].setAttribute('src', (`./assets/images/${states[Math.floor(Math.random()*49.9)]}.png`).replace(' ', '_'))
     for( let element of document.getElementsByClassName('img-fade')) {
         element.classList.toggle('transparent')
     }
